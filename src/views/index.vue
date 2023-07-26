@@ -1,5 +1,7 @@
 <template>
-  <main>22222</main>
+  <main>
+    <span class="i-mdi:wechat"></span>
+  </main>
 </template>
 
 <script setup lang="ts"></script>

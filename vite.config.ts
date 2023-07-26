@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // Plugins
 import pagesPlugin from 'vite-plugin-pages'
 import layoutPlugin from 'vite-plugin-vue-layouts'
+import UnoCSS from 'unocss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +22,8 @@ export default defineConfig({
     layoutPlugin({
       layoutsDirs: 'src/layouts',
       defaultLayout: 'index'
-    })
+    }),
+    UnoCSS()
   ],
   resolve: {
     alias: {
