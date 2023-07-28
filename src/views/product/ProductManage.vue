@@ -1,7 +1,7 @@
 <template>
-  <main>
-    <span class="i-mdi:wechat"></span>
-  </main>
+  <div>product</div>
 </template>
 
 <script setup lang="ts"></script>
+
+<style scoped></style>
