@@ -1,3 +1,5 @@
+import type { MenuModule } from '@/router/helpers'
+
 export interface CachePage {
   path: string
   fullPath: string
@@ -10,6 +12,11 @@ export const useViewsStore = defineStore(
   'views',
   () => {
     const { push } = useRouter()
+
+    const menus = ref<MenuModule[]>([])
+    function setMenus(datas: MenuModule[]) {
+      menus.value = datas
+    }
 
     const cachePages = ref<CachePage[]>([])
     const setCachePage = (page: CachePage) => cachePages.value.push(page)
@@ -43,7 +50,7 @@ export const useViewsStore = defineStore(
     const isRenderPage = ref(true)
 
     const cacheComponentsNames = computed(() =>
-      cachePages.value.map((r) => r.name.split('-').pop() as string)
+      cachePages.value.map((r) => r.name?.split('-')?.pop() as string)
     )
 
     return {
@@ -55,7 +62,9 @@ export const useViewsStore = defineStore(
       removeCachePageByPath,
       clearOtherCachePage,
       isRenderPage,
-      cacheComponentsNames
+      cacheComponentsNames,
+      menus,
+      setMenus
     }
   },
   {

@@ -7,6 +7,7 @@
     <el-container>
       <el-header class="default-layout-header" height="56">
         <PageTabs />
+        <HeadMenus />
       </el-header>
       <el-main class="default-layout-main">
         <router-view v-slot="{ Component, route }">
@@ -39,6 +40,7 @@
 <script setup lang="ts">
 import DefaultSlider from '@/layouts/components/DefaultSlider.vue'
 import PageTabs from '@/layouts/components/PageTabs.vue'
+import HeadMenus from '@/layouts/components/HeadMenus.vue'
 import { LAYOUT_PK } from '@/layouts/helper/provider'
 
 const isRenderPage = ref(true)
@@ -54,7 +56,7 @@ function refreshPage() {
   setTimeout(() => {
     isRenderPage.value = true
     excludeNames.value = []
-  }, 1000)
+  }, 100)
 }
 
 provide(LAYOUT_PK, {
@@ -68,11 +70,15 @@ provide(LAYOUT_PK, {
   min-height: 100vh;
   &-header {
     padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     // background-color: #252c38;
   }
 
   &-main {
     background-color: #f0f2f5;
+    padding: 10px;
   }
 }
 

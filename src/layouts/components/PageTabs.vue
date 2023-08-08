@@ -46,7 +46,6 @@ watch(
   (route) => {
     const { fullPath, path, name, meta = {} } = route
     currentPagePath.value = route.path
-
     const page: CachePage = {
       fullPath,
       path,

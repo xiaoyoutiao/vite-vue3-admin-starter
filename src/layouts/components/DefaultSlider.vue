@@ -9,7 +9,7 @@
   >
     <div class="logo">Logo</div>
     <el-sub-menu
-      v-for="menuModule in menus"
+      v-for="menuModule in viewsStore.menus"
       :style="getSubMenuStyle(menuModule)"
       :index="menuModule.name"
       :key="menuModule.name"
@@ -19,7 +19,7 @@
     >
       <template #title>
         <div class="menu-title" :class="{ 'menu-title--active': isActivedMenuModule(menuModule) }">
-          <span class="text-20px font" :class="[menuModule.iconName ?? '']"></span>
+          <span class="text-20px" :class="[menuModule.iconName]"></span>
           <span class="leading-18px">{{ menuModule.name }}</span>
         </div>
       </template>
@@ -45,21 +45,17 @@
 </template>
 
 <script setup lang="ts">
-const cssModule = useCssModule()
+import { MenuModule } from '@/router/helpers'
 
+const cssModule = useCssModule()
 const { currentRoute } = useRouter()
+const viewsStore = useViewsStore()
 
 const activePath = ref('')
 
 watchEffect(() => {
   activePath.value = currentRoute.value.path
 })
-
-enum MenuLevel {
-  Module = 1,
-  Group = 2,
-  Item = 3
-}
 
 function isActivedMenuModule(menuModule: MenuModule) {
   return menuModule.children?.some(
@@ -73,353 +69,6 @@ function getSubMenuStyle(menuModule: MenuModule) {
     background: isActivied ? '#43464c' : ''
   }
 }
-
-interface MenuModule {
-  name: string
-  iconName: `i-mdi:${string}`
-  level: MenuLevel.Module
-  children?: MenuGroup[]
-}
-
-interface MenuGroup {
-  name: string
-  level: MenuLevel.Group
-  children?: MenuItem[]
-}
-
-interface MenuItem {
-  name: string
-  level: MenuLevel.Item
-  routePath: string
-}
-
-const menus: MenuModule[] = [
-  {
-    name: '产品',
-    iconName: 'i-mdi:shopping-outline',
-    level: MenuLevel.Module,
-    children: [
-      {
-        level: MenuLevel.Group,
-        name: '产品',
-        children: [
-          {
-            name: '首页1',
-            level: MenuLevel.Item,
-            routePath: '/'
-          },
-          {
-            name: '首页2',
-            level: MenuLevel.Item,
-            routePath: '/?id=2'
-          },
-          {
-            name: '关于1',
-            level: MenuLevel.Item,
-            routePath: '/about/AboutMe'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: '商品',
-    iconName: 'i-mdi:shopping-outline',
-    level: MenuLevel.Module,
-    children: [
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      },
-      {
-        level: MenuLevel.Group,
-        name: '商品',
-        children: [
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          },
-          {
-            name: '商品管理',
-            level: MenuLevel.Item,
-            routePath: '/product/ProductManage'
-          },
-          {
-            name: '商品分类',
-            level: MenuLevel.Item,
-            routePath: '/product/category'
-          }
-        ]
-      }
-    ]
-  },
-  { name: '系统管理', iconName: 'i-mdi:shopping-outline', level: MenuLevel.Module, children: [] },
-  { name: '大耕户', iconName: 'i-mdi:shopping-outline', level: MenuLevel.Module, children: [] },
-  { name: '服务商', iconName: 'i-mdi:shopping-outline', level: MenuLevel.Module, children: [] },
-  { name: '活动', iconName: 'i-mdi:shopping-outline', level: MenuLevel.Module, children: [] }
-]
 </script>
 
 <style module lang="scss">

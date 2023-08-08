@@ -19,12 +19,12 @@ export default defineConfig({
     vueJsx(),
     pagesPlugin({
       dirs: [{ dir: 'src/views', baseRoute: '', filePattern: '**/*.vue' }],
-      exclude: ['**/components/*.vue'],
+      exclude: ['**/components/*.vue']
       // routeStyle: 'nuxt'
     }),
     layoutPlugin({
       layoutsDirs: 'src/layouts',
-      defaultLayout: 'index'
+      defaultLayout: 'MainLayout'
     }),
     UnoCSS(),
     AutoImport({
@@ -44,6 +44,12 @@ export default defineConfig({
     }
   },
   server: {
-    hmr: true
+    hmr: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 })
