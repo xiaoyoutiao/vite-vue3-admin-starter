@@ -10,8 +10,11 @@ declare module 'vue' {
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCol: typeof import('element-plus/es')['ElCol']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElContainer: typeof import('element-plus/es')['ElContainer']
+    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -30,6 +33,10 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    FFCascader: typeof import('./../src/components/filter-form/items/FFCascader.vue')['default']
+    FFDatePicker: typeof import('./../src/components/filter-form/items/FFDatePicker.vue')['default']
+    FFInput: typeof import('./../src/components/filter-form/items/FFInput.vue')['default']
+    FFSelect: typeof import('./../src/components/filter-form/items/FFSelect.vue')['default']
     FilterForm: typeof import('./../src/components/filter-form/FilterForm.vue')['default']
     FilterFormColumn: typeof import('./../src/components/filter-form/FilterFormColumn.vue')['default']
     HelloWorld: typeof import('./../src/components/HelloWorld.vue')['default']
@@ -38,9 +45,14 @@ declare module 'vue' {
     IconEcosystem: typeof import('./../src/components/icons/IconEcosystem.vue')['default']
     IconSupport: typeof import('./../src/components/icons/IconSupport.vue')['default']
     IconTooling: typeof import('./../src/components/icons/IconTooling.vue')['default']
+    Input: typeof import('./../src/components/filter-form/items/Input.vue')['default']
+    PlainText: typeof import('./../src/components/PlainText.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheWelcome: typeof import('./../src/components/TheWelcome.vue')['default']
     WelcomeItem: typeof import('./../src/components/WelcomeItem.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

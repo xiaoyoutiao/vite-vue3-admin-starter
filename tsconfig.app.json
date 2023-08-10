@@ -9,6 +9,7 @@
     "src/**/__tests__/*"
   ],
   "compilerOptions": {
+    "jsx": "preserve",
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [

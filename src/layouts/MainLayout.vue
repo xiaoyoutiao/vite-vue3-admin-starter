@@ -79,6 +79,10 @@ provide(LAYOUT_PK, {
   &-main {
     background-color: #f0f2f5;
     padding: 10px;
+    height: 100%;
+    main {
+      height: 100%;
+    }
   }
 }
 

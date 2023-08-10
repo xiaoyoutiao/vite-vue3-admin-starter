@@ -7,6 +7,9 @@
     "nightwatch.conf.*"
   ],
   "compilerOptions": {
+    "lib": [
+      "ES2015"
+    ],
     "composite": true,
     "module": "ESNext",
     "moduleResolution": "Node",
