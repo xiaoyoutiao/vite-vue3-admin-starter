@@ -34,10 +34,17 @@ export default defineConfig({
       dirs: ['./src/stores']
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
       dts: './types/components.d.ts'
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/scss/element-plus.scss" as *;`
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -46,9 +53,8 @@ export default defineConfig({
   server: {
     hmr: true,
     proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        rewrite: (path) => path.replace(/^\/api/, '')
+      '/server/api': {
+        target: 'https://dev-ldm-m.xdp8.cn'
       }
     }
   }

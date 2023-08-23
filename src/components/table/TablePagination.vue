@@ -1,0 +1,29 @@
+<template>
+  <div class="flex justify-end mt-2">
+    <el-pagination
+      v-model:current-page="paging.currentPage"
+      v-model:page-size="paging.pageSize"
+      :total="paging.total"
+      :page-sizes="[10, 20, 50, 100, 200]"
+      layout="total, sizes, prev, pager, next, jumper"
+      @size-change="onChange"
+      @current-change="onChange"
+    />
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { Paging } from '@/composables/useTable'
+
+const props = defineProps<{ modelValue: Paging }>()
+const { modelValue: paging } = toRefs(props)
+const emit = defineEmits<{
+  (e: 'change', p: Paging): void
+}>()
+
+function onChange() {
+  emit('change', paging.value)
+}
+</script>
+
+<style scoped></style>

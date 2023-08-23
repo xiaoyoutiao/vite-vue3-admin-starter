@@ -64,7 +64,7 @@ function onBlur() {
   border-radius: 4px;
   box-shadow: 0 0 0 1px #dcdfe6;
   &.is-foces {
-    box-shadow: 0 0 0 1px #409eff !important;
+    box-shadow: 0 0 0 1px #0655dd !important;
   }
 
   ::v-deep(.el-input__wrapper) {

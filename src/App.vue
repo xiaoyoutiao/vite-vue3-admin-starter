@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import zhCn from 'element-plus/dist/locale/zh-cn'
+const authStore = useAuthStore()
+
+authStore.setPermissions(['create', 'update', 'read', 'delete'])
+
 const locale = zhCn
-// import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -10,5 +12,3 @@ const locale = zhCn
     <RouterView />
   </el-config-provider>
 </template>
-
-<style scoped></style>

@@ -1,4 +1,4 @@
-import { type UnwrapRef, ComputedRef } from 'vue'
+import { type UnwrapRef, type ComputedRef } from 'vue'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isFunction(val: unknown): val is (...args: any[]) => any {

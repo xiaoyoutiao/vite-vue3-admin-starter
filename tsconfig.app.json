@@ -3,8 +3,9 @@
   "include": [
     "types/**.d.ts",
     "src/**/*.ts",
-    "src/**/*.vue"
-  ],
+    "src/**/*.vue",
+    "src/**/*.tsx"
+, "src/composables/table/TableButton.tsx"  ],
   "exclude": [
     "src/**/__tests__/*"
   ],

@@ -11,12 +11,7 @@
       </el-header>
       <el-main class="default-layout-main">
         <router-view v-slot="{ Component, route }">
-          <transition
-            mode="out-in"
-            name="custom-classes"
-            enter-active-class="animate__animated animate__fadeIn"
-            leave-active-class="animate__animated animate__fadeOut"
-          >
+          <transition mode="out-in" name="el-fade-in-linear">
             <keep-alive :include="viewsStore.cacheComponentsNames" :exclude="excludeNames">
               <component
                 :is="Component"
@@ -68,6 +63,8 @@ provide(LAYOUT_PK, {
 .default-layout {
   width: 100%;
   min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   &-header {
     padding: 0;
     display: flex;
@@ -80,21 +77,6 @@ provide(LAYOUT_PK, {
     background-color: #f0f2f5;
     padding: 10px;
     height: 100%;
-    main {
-      height: 100%;
-    }
   }
-}
-
-/* header {
-  width: 100%;
-  height: 100px;
-  background-color: #3c4043;
-} */
-</style>
-
-<style scoped>
-.animate__animated {
-  animation-duration: 0.1s;
 }
 </style>

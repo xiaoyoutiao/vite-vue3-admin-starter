@@ -150,7 +150,9 @@ provide(FLTER_FORM_INJECT_KEY, { model: formModel, setModelValue, manager: colum
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-
+  width: 100%;
+  flex-wrap: wrap;
+  overflow: hidden;
   .form {
     flex: 1;
     padding: 12px;
