@@ -41,11 +41,11 @@
 import {
   type ColumnItem,
   FLTER_FORM_INJECT_KEY,
-  ManagerItem,
-  SelectColumn,
-  CascaderColumn
+  type ManagerItem,
+  type SelectColumn,
+  type CascaderColumn
 } from './form'
-import { FormInstance } from 'element-plus'
+import { type FormInstance } from 'element-plus'
 import FFInput from './items/FFInput.vue'
 import FFSelect from './items/FFSelect.vue'
 import FFDatePicker from './items/FFDatePicker.vue'
@@ -149,10 +149,10 @@ provide(FLTER_FORM_INJECT_KEY, { model: formModel, setModelValue, manager: colum
   background-color: #fff;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
   width: 100%;
   flex-wrap: wrap;
   overflow: hidden;
+
   .form {
     flex: 1;
     padding: 12px;
@@ -177,12 +177,16 @@ provide(FLTER_FORM_INJECT_KEY, { model: formModel, setModelValue, manager: colum
       color: #666;
       border-right: 1px solid #dcdfe6;
       padding-right: 10px;
+      font-style: normal;
+      font-size: 12px;
     }
 
     ::v-deep(.el-input__prefix) {
       --el-input-icon-color: #666;
       border-right: 1px solid #dcdfe6;
       margin-right: 6px;
+      font-size: 12px;
+
       .el-input__prefix-inner {
         .el-icon.el-input__icon {
           width: auto;
@@ -192,7 +196,7 @@ provide(FLTER_FORM_INJECT_KEY, { model: formModel, setModelValue, manager: colum
   }
   .actions {
     height: 100%;
-    padding: 12px;
+    padding: 10px;
     border-left: 1px solid #f5f5f5;
   }
 }
@@ -202,5 +206,17 @@ provide(FLTER_FORM_INJECT_KEY, { model: formModel, setModelValue, manager: colum
   line-height: 32px;
   height: 32px;
   transform: translateY(-2px);
+}
+
+::v-deep(.el-input) {
+  --el-input-width: 200px;
+}
+
+::v-deep(.el-form-item__error) {
+  background-color: var(--el-color-danger);
+  color: #fff;
+  padding: 2px;
+  margin-top: 2px;
+  white-space: nowrap;
 }
 </style>

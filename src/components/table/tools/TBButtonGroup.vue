@@ -10,7 +10,12 @@
 
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item :command="ctx" v-for="ctx in dropdownButtonContexts" :key="ctx.uid">
+          <el-dropdown-item
+            :command="ctx"
+            v-for="ctx in dropdownButtonContexts"
+            :key="ctx.uid"
+            :disabled="ctx.props.disabled"
+          >
             <el-text :type="getType(ctx)">
               <Render :ctx="ctx" />
             </el-text>
@@ -42,6 +47,7 @@ const { dropdownButtonContexts } = buttonGroup
 provide(InjectkeyWithButtonGroup, { name: 'ButtonGroup', ...buttonGroup })
 
 function getType(ctx: ButtonContext) {
+  if (ctx.props.disabled) return 'info'
   return ctx.props.type as 'primary'
 }
 

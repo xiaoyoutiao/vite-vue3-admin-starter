@@ -20,7 +20,6 @@ export default defineConfig({
     pagesPlugin({
       dirs: [{ dir: 'src/views', baseRoute: '', filePattern: '**/*.vue' }],
       exclude: ['**/components/*.vue']
-      // routeStyle: 'nuxt'
     }),
     layoutPlugin({
       layoutsDirs: 'src/layouts',

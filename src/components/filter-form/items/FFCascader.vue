@@ -18,7 +18,7 @@
 import type { ExtractPropTypes } from 'vue'
 import type { cascaderProps } from 'element-plus'
 
-import { CascaderColumn, FLTER_FORM_INJECT_KEY } from '../form'
+import { type CascaderColumn, FLTER_FORM_INJECT_KEY } from '../form'
 
 const Texts = {
   placeholder: '请选择',
@@ -63,6 +63,7 @@ function onBlur() {
   overflow: hidden;
   border-radius: 4px;
   box-shadow: 0 0 0 1px #dcdfe6;
+
   &.is-foces {
     box-shadow: 0 0 0 1px #0655dd !important;
   }
@@ -76,6 +77,7 @@ function onBlur() {
     padding: 0 8px;
     color: #666;
     border-right: 1px solid #dcdfe6;
+    font-size: 12px;
   }
 }
 </style>

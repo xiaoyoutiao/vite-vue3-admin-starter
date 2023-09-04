@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core'
 
-import { ButtonEnum, MenuItem } from './context-menu.d'
+import { ButtonEnum, type MenuItem } from './context-menu.d'
 
 interface Props {
   position: { x: number; y: number }

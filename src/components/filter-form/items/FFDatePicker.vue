@@ -1,5 +1,7 @@
 <template>
   <el-date-picker
+    class="ff-date-picker"
+    style="--el-date-editor-width: 280px"
     :modelValue="date"
     :placeholder="placeholder"
     :prefix-icon="column.label ? h('div', column.label) : undefined"
@@ -38,3 +40,14 @@ function onChange(val: unknown) {
   formProvider?.setModelValue(column.value.prop, val)
 }
 </script>
+
+<style lang="scss" scoped>
+.ff-date-picker {
+  &:deep(.el-range__icon) {
+    div {
+      font-style: normal;
+      color: red !important;
+    }
+  }
+}
+</style>

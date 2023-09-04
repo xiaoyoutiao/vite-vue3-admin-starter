@@ -9,8 +9,11 @@
     <template #default="scope">
       <slot v-bind="scope" :value="scope.row[scope?.column?.property]" name="default">
         <span class="text-20px" v-if="props.renderType == 'whether'">
-          <i class="i-mdi:check color-blue-600" v-if="isTruthy(scope.row[scope.column.property])" />
-          <i class="i-mdi:close text-gray-400" v-else />
+          <i
+            class="i-mdi:checkbox-multiple-marked-circle color-blue-600"
+            v-if="isTruthy(scope.row[scope.column.property])"
+          />
+          <i class="i-mdi:close-thick text-gray-400" v-else />
         </span>
 
         <span v-else>

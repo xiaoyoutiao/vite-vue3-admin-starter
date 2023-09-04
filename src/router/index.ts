@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'virtual:generated-layouts'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 const routes = setupLayouts(generatedRoutes)
 
 const router = createRouter({
@@ -9,12 +11,18 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
+  NProgress.inc()
+
   const userStore = useUserStore()
 
   if (!userStore.isLogin && to.meta.logined !== false) {
     userStore.logout()
     return false
   }
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

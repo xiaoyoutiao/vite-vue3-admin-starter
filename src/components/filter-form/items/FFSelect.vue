@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import type { ISelectProps } from 'element-plus'
 
-import { SelectColumn, FLTER_FORM_INJECT_KEY } from '../form'
+import { type SelectColumn, FLTER_FORM_INJECT_KEY } from '../form'
 
 const Texts = {
   placeholder: '请选择',

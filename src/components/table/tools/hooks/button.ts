@@ -1,4 +1,4 @@
-import { type InjectionKey, type SetupContext, type ComputedRef } from 'vue'
+import { type InjectionKey, type SetupContext} from 'vue'
 import TBButton from '../TBButton.vue'
 import { type ButtonType } from 'element-plus'
 
@@ -10,6 +10,7 @@ export interface ButtonProps {
   permission?: string
   confirm?: true | string
   dropdown?: boolean
+  disabled?: boolean
 }
 
 export interface ButtonContext {

@@ -13,7 +13,9 @@
     <FilterForm :model="condition" :columns="columns" @query="query"></FilterForm>
 
     <div class="h-80%">
-      <el-table :data="datas" height="100%" v-loading="loading">
+      <TBSettingBar @refresh="query"></TBSettingBar>
+
+      <el-table :data="datas" height="100%" v-loading="loading" width="100%" border>
         <TableColumn type="expand">
           <template #default="{ row }">
             <el-descriptions title="优惠券信息" class="px-10" size="small" :column="4" border>
@@ -85,6 +87,7 @@
           prop="receiveTargetType"
           label="领取对象"
           :renderType="'enum'"
+          width="90"
           :renderData="ReceiveTargetTypeEnum"
         />
 
@@ -92,7 +95,7 @@
           label="是否分摊"
           prop="haveExchangeRatio"
           align="center"
-          width="80"
+          width="90"
           render-type="whether"
         />
 
@@ -110,28 +113,31 @@
             {{ row.actEffectStartTime }} ~ {{ row.actEffectEndTime }}
           </template>
         </TableColumn>
-<!-- 
-        <TableColumn label="状态" prop="actStatus" align="center" fixed="right">
-          <template #default="{ value }">
-            <Tags :value="value"></Tags>
-          </template>
-        </TableColumn> -->
 
-        <TableColumn label="状态" prop="actStatus" align="center" fixed="right">
-          <template #default="{ row }">
-            <el-tag type="success" v-if="row.actStatus == 2">已投放</el-tag>
-            <el-tag type="info" v-else-if="row.actStatus == 3">已作废</el-tag>
+        <TableColumn label="状态" prop="actStatus" align="center" fixed="right" width="90">
+          <template #default="{ value }">
+            <TbGetter
+              :value="value"
+              :options="[
+                { value: 2, label: '已投放', type: 'success' },
+                { value: 3, label: '已作废', type: 'info' }
+              ]"
+            >
+              <template #default="{ row }">
+                <StatusText :type="row.type">{{ row.label }}</StatusText>
+              </template>
+            </TbGetter>
           </template>
         </TableColumn>
 
-        <TableColumn prop="index" label="操作" fixed="right" width="200" align="center">
+        <TableColumn prop="index" label="操作" fixed="right" width="130" align="center">
           <template #default>
             <TBButtonGroup>
               <TBButton permission="read" @click="onClickDetail">详情</TBButton>
 
               <TBButton permission="update">更新</TBButton>
 
-              <TBButton permission="create" confirm>复制</TBButton>
+              <TBButton permission="create" confirm disabled>复制</TBButton>
 
               <TBButton permission="delete" type="danger" confirm="确定要移除该项吗?">
                 删除
@@ -157,12 +163,15 @@ import TableColumn from '@/components/table/TableColumn.vue'
 
 import TBButtonGroup from '@/components/table/tools/TBButtonGroup.vue'
 import TBButton from '@/components/table/tools/TBButton.vue'
+import TbGetter from '@/components/table/getter/TbGetter.vue'
+import TBSettingBar from '@/components/table/tools/TBSettingBar.vue'
+import { StatusText } from '@/components/text'
 
 async function fetchTableDatas(page: RequestPaging) {
   const myHeaders = new Headers()
   myHeaders.append(
     'Token',
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXF1ZXN0VHlwZSI6Im1hbmFnZSIsImN1cnJlbnRUaW1lTWlsbGlzIjoiMTY5Mjc4MDAzOTA3NiIsImV4cCI6MTY5Mjc4MzYzOSwidXNlcm5hbWUiOiJyeXUifQ.KEZAY_XR4-1dtV2UnVPu-KAV_0Fk3fSidM3YYhGifkA'
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXF1ZXN0VHlwZSI6Im1hbmFnZSIsImN1cnJlbnRUaW1lTWlsbGlzIjoiMTY5Mzc5MjAwNDM0MyIsImV4cCI6MTY5Mzc5NTYwNCwidXNlcm5hbWUiOiJyeXUifQ.NheVwJYH6v7xBbFmgTChM5PryeRwa_JiudT0-pmwZtk'
   )
 
   myHeaders.append('Content-Type', 'application/json')
@@ -192,12 +201,14 @@ const columns: ColumnItem[] = [
   {
     type: 'input',
     label: '编码',
-    prop: 'actCode'
+    prop: 'actCode',
+    rules: [{ required: true, message: '字段必须' }]
   },
   {
     type: 'input',
     label: '名称',
-    prop: 'actName'
+    prop: 'actName',
+    rules: [{ required: true, message: '字段必须' }]
   },
   {
     type: 'select',
@@ -309,4 +320,3 @@ const onCopyConfirm = (row: any) => {
   overflow-y: auto;
 }
 </style>
-@/composables/table/TableButton

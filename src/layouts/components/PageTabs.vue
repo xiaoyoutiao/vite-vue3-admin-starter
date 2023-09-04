@@ -29,8 +29,8 @@
 </template>
 
 <script setup lang="ts">
-import { TabsPaneContext } from 'element-plus'
-import { CachePage, useViewsStore } from '@/stores/views'
+import { type TabsPaneContext } from 'element-plus'
+import { type CachePage, useViewsStore } from '@/stores/views'
 import ContextMenu from './ContextMenu.vue'
 import { ButtonEnum } from './context-menu.d'
 import { LAYOUT_PK } from '../helper/provider'
