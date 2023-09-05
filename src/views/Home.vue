@@ -10,7 +10,19 @@
 
 <template>
   <div class="page">
-    <FilterForm :model="condition" :columns="columns" @query="query"></FilterForm>
+    {{ condition }}
+    <FilterBar :model="condition" @query="onQuery">
+      <FilterInput label="产品编码" prop="code" required></FilterInput>
+      <FilterSelect label="产品名称" prop="name" clearable></FilterSelect>
+      <FilterDatePicker
+        label="时间范围"
+        prop="dateRange"
+        required
+        clearable
+        type="daterange"
+      ></FilterDatePicker>
+      <FilterCascader label="地区" prop="areaCode" required></FilterCascader>
+    </FilterBar>
 
     <div class="h-80%">
       <TBSettingBar @refresh="query"></TBSettingBar>
@@ -83,13 +95,7 @@
           ]"
         />
 
-        <TableColumn
-          prop="receiveTargetType"
-          label="领取对象"
-          :renderType="'enum'"
-          width="90"
-          :renderData="ReceiveTargetTypeEnum"
-        />
+        <TableColumn prop="receiveTargetType" label="领取对象" :renderType="'enum'" width="90" />
 
         <TableColumn
           label="是否分摊"
@@ -155,23 +161,28 @@
 </template>
 
 <script setup lang="ts">
-import FilterForm from '@/components/filter-form/FilterForm.vue'
-import { type ColumnItem } from '@/components/filter-form/form'
-import { useTable, type RequestPaging } from '@/composables/useTable'
-import TablePagination from '@/components/table/TablePagination.vue'
-import TableColumn from '@/components/table/TableColumn.vue'
+import FilterBar from '@/components/standard-design/filter/refactor/filter-bar.vue'
+import FilterInput from '@/components/standard-design/filter/refactor/components/filter-input.vue'
+import FilterSelect from '@/components/standard-design/filter/refactor/components/filter-select.vue'
+import FilterDatePicker from '@/components/standard-design/filter/refactor/components/filter-date-picker.vue'
+import FilterCascader from '@/components/standard-design/filter/refactor/components/filter-cascader.vue'
 
-import TBButtonGroup from '@/components/table/tools/TBButtonGroup.vue'
-import TBButton from '@/components/table/tools/TBButton.vue'
-import TbGetter from '@/components/table/getter/TbGetter.vue'
-import TBSettingBar from '@/components/table/tools/TBSettingBar.vue'
+// import FilterForm from '@/components/standard-design/filter/FilterForm.vue'
+import { useTable, type RequestPaging } from '@/composables/useTable'
+import TablePagination from '@/components/standard-design/table/TablePagination.vue'
+import TableColumn from '@/components/standard-design/table/TableColumn.vue'
+
+import TBButtonGroup from '@/components/standard-design/table/tools/TBButtonGroup.vue'
+import TBButton from '@/components/standard-design/table/tools/TBButton.vue'
+import TbGetter from '@/components/standard-design/table/getter/TbGetter.vue'
+import TBSettingBar from '@/components/standard-design/table/tools/TBSettingBar.vue'
 import { StatusText } from '@/components/text'
 
 async function fetchTableDatas(page: RequestPaging) {
   const myHeaders = new Headers()
   myHeaders.append(
     'Token',
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXF1ZXN0VHlwZSI6Im1hbmFnZSIsImN1cnJlbnRUaW1lTWlsbGlzIjoiMTY5Mzc5MjAwNDM0MyIsImV4cCI6MTY5Mzc5NTYwNCwidXNlcm5hbWUiOiJyeXUifQ.NheVwJYH6v7xBbFmgTChM5PryeRwa_JiudT0-pmwZtk'
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXF1ZXN0VHlwZSI6Im1hbmFnZSIsImN1cnJlbnRUaW1lTWlsbGlzIjoiMTY5MzgxNjY4NTY4MiIsImV4cCI6MTY5MzgyMDI4NSwidXNlcm5hbWUiOiJyeXUifQ.yqCA5nCD5--hgMkhWoQwdualbsCxshAaGElPTsU3ils'
   )
 
   myHeaders.append('Content-Type', 'application/json')
@@ -195,109 +206,16 @@ async function fetchTableDatas(page: RequestPaging) {
 
 const { datas, loading, paging, query } = useTable(fetchTableDatas)
 
-const condition = reactive({})
-
-const columns: ColumnItem[] = [
-  {
-    type: 'input',
-    label: '编码',
-    prop: 'actCode',
-    rules: [{ required: true, message: '字段必须' }]
-  },
-  {
-    type: 'input',
-    label: '名称',
-    prop: 'actName',
-    rules: [{ required: true, message: '字段必须' }]
-  },
-  {
-    type: 'select',
-    label: '领取对象',
-    prop: 'receiveTargetType',
-    options: (resolve) => {
-      setTimeout(() => {
-        resolve([
-          { label: '大耕户', value: 1 },
-          { label: '服务商', value: 2 },
-          { label: '管理商', value: 3 }
-        ])
-      }, 1000)
-    },
-    props: {
-      clearable: true
-    }
-  },
-  {
-    type: 'datePicker',
-    label: '时间范围',
-    prop: 'beginTime',
-    props: {
-      type: 'daterange'
-    }
-  },
-  {
-    type: 'cascader',
-    label: '街道',
-    prop: 'streeCodes',
-    options: (resolver) => {
-      setTimeout(() => {
-        const list: any[] = []
-        for (let i = 0; i < 100; i++) {
-          list[i] = { label: 'f' + 0, value: 'f' + i, children: [] }
-
-          for (let j = 0; j < 10; j++) {
-            list[i].children[j] = {
-              label: 'f' + i + 'c' + j,
-              value: 'f' + i + 'c' + j,
-              children: []
-            }
-            for (let z = 0; z < 3; z++) {
-              list[i].children[j].children[z] = {
-                label: 'f' + i + 'c' + j,
-                value: 'f' + i + 'c' + j
-              }
-            }
-          }
-        }
-
-        resolver(list)
-      }, 1500)
-    },
-    props: {
-      clearable: true
-    }
-  }
-]
-
-const tableData = ref<any>([])
-
-const list = []
-
-for (let i = 0; i < 50; i++) {
-  list[i] = { name: 'f' + 0, sex: 'f' + i, age: i }
-}
-tableData.value = list
-
-// const ReceiveTargetTypeEnum = {
-//   1: '大耕户',
-//   2: '服务商',
-//   3: '管理商'
-// }
-
-const ReceiveTargetTypeEnum = [
-  { label: '大耕户', value: 1 },
-  { label: '服务商', value: 2 },
-  { label: '管理商', value: 3 }
-]
-
-// const enumConponents = {
-//   1: <el-text type="primary">铁粉</el-text>
-// }
+const condition = reactive({
+  // code: '12',
+  // name: 'ryu',
+  // dateRange: ['2023-09-05', '2023-09-06'],
+  // areaCode: '2035'
+})
 
 const onClickDetail = () => console.log('onClickDetail')
-const onCopyConfirm = (row: any) => {
-  console.log('row :>> ', row)
-}
+
+const onQuery = (r: unknown) => console.log('r :>> ', r)
 </script>
 
 <style scoped lang="scss">

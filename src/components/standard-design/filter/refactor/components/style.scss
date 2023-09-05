@@ -1,0 +1,23 @@
+.el-form-item {
+  --el-text-color-regular: #666;
+  margin: 10px 0 20px 0;
+
+  ::v-deep(.el-form-item__label) {
+    transition: all 0.2s linear;
+    padding: 0;
+    margin: 0 2px 0 12px;
+    padding: 0 8px 0 5px;
+    border-radius: 4px 0 0 4px;
+    font-size: 12px;
+    box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset;
+  }
+}
+
+.el-input {
+  --el-input-width: 180px;
+}
+
+::v-deep(.el-input__wrapper) {
+  --el-date-editor-daterange-width: 200px;
+  border-radius: 0 4px 4px 0;
+}

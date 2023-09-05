@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import type { InputProps } from 'element-plus'
 
-import { InputColumn, FLTER_FORM_INJECT_KEY } from '../form'
+import { type InputColumn, FLTER_FORM_INJECT_KEY } from '../form'
 
 const formProvider = inject(FLTER_FORM_INJECT_KEY)
 
