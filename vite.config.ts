@@ -55,7 +55,8 @@ export default defineConfig({
       '/server/api': {
         secure: true,
         changeOrigin: true,
-        target: 'https://dev-ldm-m.xdp8.cn'
+        target: 'http://localhost:3000',
+        rewrite: (path) => path.replace('/server/api', '/')
       }
     }
   }

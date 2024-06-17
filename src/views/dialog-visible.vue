@@ -6,12 +6,12 @@
       :loading="loading"
       label-key="name"
       row-key="id"
+      required
     >
       <template #header>
-        <FilterBar :model="{}" @query="query">
-          <FilterInput label="产品编码" prop="name"></FilterInput>
-          <FilterSelect label="产品名称" prop="name" clearable></FilterSelect>
-          <FilterSelect label="产品名称" prop="name" clearable></FilterSelect>
+        <FilterBar :model="condition" @query="query">
+          <FilterInput label="名称" prop="name"></FilterInput>
+          <FilterSelect label="编码" prop="id" clearable></FilterSelect>
         </FilterBar>
       </template>
 
@@ -26,6 +26,7 @@
           v-model="paging"
           small
           background
+          :disabled="loading"
           @change="query"
         />
       </template>
@@ -46,11 +47,13 @@ import TablePagination from '@/components/standard-design/table/TablePagination.
 import { useTable, type RequestPaging, type ResPagingData } from '@/composables/useTable'
 import { sleep } from '@/utils'
 
-const { datas, paging, loading, query } = useTable(fetchTableDatas, { immediate: false })
+const condition = ref({ name: '', id: '' })
+const { datas, paging, loading, query } = useTable(fetchTableDatas, { immediate: true })
 
 async function fetchTableDatas(
   page: RequestPaging
 ): Promise<ResPagingData<{ name: string; id: string }>> {
+  console.log('condition :>> ', condition.value)
   await sleep(1000)
   return {
     records: patchCreateData(15, page.currentPage),

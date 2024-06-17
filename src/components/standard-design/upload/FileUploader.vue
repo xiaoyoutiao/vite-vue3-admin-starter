@@ -1,4 +1,5 @@
 <template>
+  {{ fileList }}
   <div class="page">
     <el-upload
       v-model:file-list="fileList"
@@ -14,7 +15,6 @@
       </template>
 
       <template #default>
-        <!-- <el-button type="primary" @click="onClickSelect">选择文件</el-button> -->
         <el-button class="ml-2" type="success" :disabled="!enabledSubmit" @click="submitUpload">
           {{ uploading ? '上传中' : '开始上传' }}
         </el-button>
@@ -85,11 +85,6 @@ onChange((files) => {
   if (!~index) return
   fileList.value[index] = uploadFile
 })
-
-const onClickSelect = () => {
-  targetChangeFile.value = null
-  open({ multiple: false })
-}
 </script>
 
 <style scoped>

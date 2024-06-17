@@ -7,6 +7,7 @@
       :page-sizes="[10, 20, 50, 100, 200]"
       layout="total, sizes, prev, pager, next, jumper"
       :small="small"
+      :disabled="disabled"
       :background="background"
       @size-change="onChange"
       @current-change="onChange"
@@ -22,6 +23,7 @@ interface Props {
   small?: boolean
   wrapperClass?: string
   background?: boolean
+  disabled?: boolean
 }
 
 const props = defineProps<Props>()

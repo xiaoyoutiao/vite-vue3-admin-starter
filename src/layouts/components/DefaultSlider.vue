@@ -20,7 +20,7 @@
       <template #title>
         <div class="menu-title" :class="{ 'menu-title--active': isActivedMenuModule(menuModule) }">
           <span class="text-20px" :class="[menuModule.iconName]"></span>
-          <span class="leading-18px">{{ menuModule.name }}</span>
+          <span class="leading-18px text-12px">{{ menuModule.name }}</span>
         </div>
       </template>
 
@@ -33,7 +33,7 @@
           <div class="mt-4">{{ menuGroup.name }}</div>
         </template>
         <el-menu-item
-          :index="menuItem.routePath"
+          :index="menuItem.path"
           v-for="menuItem in menuGroup.children"
           :key="menuItem.name"
         >
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { MenuModule } from '@/router/helpers'
+import type { MenuModule } from '@/router/helpers'
 
 const cssModule = useCssModule()
 const { currentRoute } = useRouter()
@@ -59,7 +59,7 @@ watchEffect(() => {
 
 function isActivedMenuModule(menuModule: MenuModule) {
   return menuModule.children?.some(
-    (menuGroup) => menuGroup.children?.some((menuItem) => menuItem.routePath == activePath.value)
+    (menuGroup) => menuGroup.children?.some((menuItem) => menuItem.path == activePath.value)
   )
 }
 
@@ -103,7 +103,7 @@ function getSubMenuStyle(menuModule: MenuModule) {
 .el-menu {
   border: none;
   --el-menu-base-level-padding: 0;
-  --el-menu-item-height: 70px;
+  --el-menu-item-height: 50px;
   --el-menu-bg-color: #14181f;
   --el-menu-hover-bg-color: rgba(255, 255, 255, 0.2);
   --el-menu-text-color: rgba(255, 255, 255, 0.6);
@@ -123,7 +123,7 @@ function getSubMenuStyle(menuModule: MenuModule) {
 
 .menu-title {
   width: 70px;
-  height: 70px;
+  height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;

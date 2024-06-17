@@ -79,10 +79,11 @@ const onClickCopy = async (source: string) => {
 <style scoped lang="scss">
 .copyable {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 2px;
+  right: 2px;
   font-size: 12px;
   cursor: pointer;
   z-index: 10;
+  transform: scale(0.9);
 }
 </style>

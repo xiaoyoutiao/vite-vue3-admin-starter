@@ -1,21 +1,21 @@
 export interface MenuModule {
   name: string
   iconName: `i-mdi:${string}`
-  level: MenuLevel.Module
+  type: MenuLevel.Module
   children?: MenuGroup[]
 }
 
 export interface MenuGroup {
   name: string
-  level: MenuLevel.Group
+  type: MenuLevel.Group
   children?: MenuItem[]
 }
 
 export interface MenuItem {
   name: string
-  level: MenuLevel.Item
-  routePath: string
-  routeName: string
+  type: MenuLevel.Item
+  path: string
+  code: string
 }
 
 export enum MenuLevel {

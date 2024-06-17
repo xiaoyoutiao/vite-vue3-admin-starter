@@ -80,9 +80,14 @@
           <slot name="footer"></slot>
         </el-col>
 
-        <el-col class="mt-2">
+        <el-col class="mt-2 flex items-center">
+          <div class="text-red text-right w-full mr-3 !text-xs" v-if="disabledConfirm">
+            <i class="i-mdi:close-octagon text-lg mb-1" />至少选择一项
+          </div>
           <el-button @click="dialogVisible = false" class="ml-auto">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+          <el-button type="primary" :disabled="disabledConfirm" @click="handleConfirm">
+            确定
+          </el-button>
         </el-col>
       </el-row>
     </template>
@@ -105,11 +110,18 @@ interface SelectDialogProps {
   title?: string
   max?: number
   loading?: boolean
+  closeOnClickConfirm?: boolean
+  onConfirm?: (value: any[]) => boolean | ((value: any[]) => Promise<boolean>)
+  required?: boolean
 }
 const slots = defineSlots()
+const emit = defineEmits<{
+  (e: 'confirm', value: any[]): void
+}>()
 const props = withDefaults(defineProps<SelectDialogProps>(), {
   title: '选择',
-  max: -1
+  max: -1,
+  closeOnClickConfirm: true
 })
 const { modelValue, data, rowKey, max, loading } = toRefs(props)
 
@@ -163,6 +175,16 @@ const setTable = async (list: any[]) => {
 
 const onDialogOpened = async () => {
   setTable(modelValue.value)
+}
+
+const disabledConfirm = computed(() => props.required && !multipleSelection.value.length)
+
+const handleConfirm = async () => {
+  if (props.onConfirm && !(await props.onConfirm(multipleSelection.value))) return
+  emit('confirm', multipleSelection.value)
+  if (props.closeOnClickConfirm) {
+    dialogVisible.value = false
+  }
 }
 </script>
 

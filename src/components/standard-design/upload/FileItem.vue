@@ -32,7 +32,8 @@
             :style="{ color: currrentStatus.color }"
           />
           <span class="text-xs text-gray-400 ml-1">
-            {{ currrentStatus.text }} {{ file.percentage ? `(${file.percentage}%)` : '' }}
+            {{ currrentStatus.text }}
+            {{ file.percentage && !failed ? `(${file.percentage}%)` : '' }}
           </span>
         </div>
       </div>
@@ -104,6 +105,7 @@ const createOption = (text: string, icon: string, color: string) => ({
   text
 })
 
+const failed = computed(() => file.value.status === 'fail')
 const uploading = computed(() => file.value.status === 'uploading')
 
 const statusConfig: Record<UploadFile['status'], StatusOption> = {

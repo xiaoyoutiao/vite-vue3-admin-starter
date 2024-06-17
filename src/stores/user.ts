@@ -16,13 +16,13 @@ export const useUserStore = defineStore(
     }
 
     async function fetchRoutes() {
-      const res = await Axios.get('/api')
-      const remoteMenus = res.data
+      const res = await Axios.get('/server/api/system/menu/tree')
+      const remoteMenus = res.data.data
 
-      // viewsStore.setMenus(remoteMenus ?? [])
+      viewsStore.setMenus(remoteMenus ?? [])
 
-      // const localRoutes = getRoutes()
-      // patchRoutes(remoteMenus, localRoutes)
+      const localRoutes = getRoutes()
+      patchRoutes(remoteMenus, localRoutes)
     }
 
     function patchRoutes(menuModule: MenuModule[], routes: RouteRecordNormalized[]) {
@@ -37,7 +37,7 @@ export const useUserStore = defineStore(
       }, [] as MenuItem[])
 
       routes.forEach((route) => {
-        const targetMenu = menuItems.find((item) => item.routePath === route.path)
+        const targetMenu = menuItems.find((item) => item.path === route.path)
 
         if (targetMenu) {
           route.meta.alias = targetMenu.name
@@ -57,7 +57,7 @@ export const useUserStore = defineStore(
   },
   {
     persist: {
-      paths: ["isLogin"]
+      paths: ['isLogin']
     }
   }
 )
