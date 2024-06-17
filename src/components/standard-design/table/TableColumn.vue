@@ -8,16 +8,14 @@
 
     <template #default="scope">
       <slot v-bind="scope" :value="scope.row[scope?.column?.property]" name="default">
-        <span class="text-20px" v-if="props.renderType == 'whether'">
-          <i
-            class="i-mdi:checkbox-multiple-marked-circle color-blue-600"
-            v-if="isTruthy(scope.row[scope.column.property])"
-          />
-          <i class="i-mdi:close-thick text-gray-400" v-else />
-        </span>
-
-        <span v-else>
+        <span>
           {{ accessContent(scope.row[scope.column.property]) }}
+          <i
+            title="复制"
+            v-if="props.copyable"
+            class="copyable i-mdi:content-copy"
+            @click="onClickCopy(scope.row[scope?.column?.property])"
+          />
         </span>
       </slot>
     </template>
@@ -25,30 +23,19 @@
 </template>
 
 <script setup lang="ts">
+import { useClipboard } from '@vueuse/core'
+import { ElNotification } from 'element-plus'
+
 import { type ElTableColumnProps } from './types'
 import TabelColumnTooltip from './TabelColumnTooltip.vue'
 
-const isTruthy = (val: unknown) => {
-  return typeof val == 'boolean' || typeof val == 'number'
-    ? !!val
-    : typeof val == 'string'
-    ? !!Number(val)
-    : Boolean(val)
-}
-
-interface ArrayEnumItem {
-  label: string
-  value: unknown
-}
-
-interface ObjectEnum {
-  [index: string]: string
-}
+import { formatCurrency, type CurrencyOptions } from '@/utils/currency'
+import { isBoolean } from 'xe-utils'
 
 interface Props extends ElTableColumnProps {
   headerTooltip?: string
-  renderData?: ArrayEnumItem[] | ObjectEnum | string[]
-  renderType?: 'enum' | 'whether'
+  copyable?: boolean
+  currency?: CurrencyOptions | true
 }
 
 const props = withDefaults(defineProps<Props>(), {})
@@ -57,15 +44,11 @@ const slots = useSlots()
 
 const rowValue = ref()
 
-const accessEnumText = (enums: ArrayEnumItem[] | string[] | ObjectEnum, value: unknown) =>
-  (enums as ArrayEnumItem[])?.find((e) => e?.value == value)?.label ?? enums[value as number]
-
 const accessContent = (value: string) => {
   rowValue.value = value
-  const { renderType, renderData } = props
 
-  if (renderType == 'enum' && renderData) {
-    return accessEnumText(renderData, value) ?? value ?? '--'
+  if (props.currency) {
+    return formatCurrency(value, isBoolean(props.currency) ? undefined : props.currency)
   }
 
   return value ?? '--'
@@ -78,6 +61,28 @@ const align = computed(() => {
   }
   return 'left'
 })
+
+const onClickCopy = async (source: string) => {
+  const { copy, copied } = useClipboard({ source })
+  await copy()
+  if (copied.value) {
+    ElNotification({
+      title: '成功',
+      type: 'success',
+      message: '内容已复制到剪贴板',
+      position: 'bottom-left'
+    })
+  }
+}
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.copyable {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10;
+}
+</style>

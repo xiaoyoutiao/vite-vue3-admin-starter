@@ -17,5 +17,10 @@ export default defineConfig({
       }
     })
   ],
-  safelist: [...mdiIconNames]
+  safelist: [...mdiIconNames],
+  shortcuts: [
+    {
+      'flex-col': 'flex flex-col'
+    }
+  ]
 })

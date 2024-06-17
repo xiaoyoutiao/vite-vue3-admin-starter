@@ -1,5 +1,5 @@
 import { type UnwrapRef } from 'vue'
-import { omit } from 'xe-utils'
+import { omit } from 'lodash-es'
 
 export interface ResPaging {
   size: number
@@ -46,6 +46,7 @@ export function useTable<T>(
 
   async function query() {
     try {
+      if (loading.value) return
       loading.value = true
       const { records = [], total = 0 } = await executor(omit(paging.value, ['total'])).finally(
         () => (loading.value = false)
@@ -60,6 +61,7 @@ export function useTable<T>(
   }
 
   function reload() {
+    if (loading.value) return
     paging.value = getInitailPaging()
     query()
   }

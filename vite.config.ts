@@ -53,6 +53,8 @@ export default defineConfig({
     hmr: true,
     proxy: {
       '/server/api': {
+        secure: true,
+        changeOrigin: true,
         target: 'https://dev-ldm-m.xdp8.cn'
       }
     }

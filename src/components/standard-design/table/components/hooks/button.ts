@@ -1,5 +1,5 @@
 import { type InjectionKey, type SetupContext} from 'vue'
-import TBButton from '../TBButton.vue'
+import TabularButton from '../TabularButton.vue'
 import { type ButtonType } from 'element-plus'
 
 export interface ButtonGroupProps {
@@ -26,7 +26,7 @@ interface ButtonGroupProvider extends ReturnType<typeof useButtonGroup> {
   name: 'ButtonGroup'
 }
 
-export type TBButtonInstance = InstanceType<typeof TBButton>
+export type TBButtonInstance = InstanceType<typeof TabularButton>
 
 export const InjectkeyWithButtonGroup = Symbol() as InjectionKey<ButtonGroupProvider>
 

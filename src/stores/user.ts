@@ -19,11 +19,10 @@ export const useUserStore = defineStore(
       const res = await Axios.get('/api')
       const remoteMenus = res.data
 
-      viewsStore.setMenus(remoteMenus ?? [])
+      // viewsStore.setMenus(remoteMenus ?? [])
 
-      const localRoutes = getRoutes()
-      patchRoutes(remoteMenus, localRoutes)
-      console.log(getRoutes())
+      // const localRoutes = getRoutes()
+      // patchRoutes(remoteMenus, localRoutes)
     }
 
     function patchRoutes(menuModule: MenuModule[], routes: RouteRecordNormalized[]) {

@@ -1,6 +1,7 @@
 <template>
   <div class="tb-setting-bar">
-    <div class="flex flex-1">
+    <div class="flex flex-1 items-center">
+      <i class="i-mdi:drag-vertical-variant text-2xl text-blue-800"></i>
       <slot></slot>
     </div>
 
@@ -36,7 +37,7 @@ const emit = defineEmits<{
 
 <style scoped lang="scss">
 .tb-setting-bar {
-  padding: 10px 0;
+  padding: 5px 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

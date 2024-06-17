@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white flex items-center">
+  <div class="bg-white flex pt-2 pl-2">
     <div class="flex-1 flex items-center flex-wrap">
       <el-form ref="formRef" inline size="small" :model="props.model" @validate="onValidate">
         <slot></slot>
@@ -26,7 +26,7 @@ interface Props {
 
 const props = defineProps<Props>()
 const emit = defineEmits<{
-  (e: 'query'): void
+  (e: 'query', model: any): void
 }>()
 const formRef = ref<InstanceType<typeof ElForm> | null>(null)
 
@@ -36,7 +36,7 @@ const onClickQuery = async () => {
   try {
     isValidForm.value = true
     await formRef.value?.validate()
-    emit('query')
+    emit('query', props.model)
   } catch (e) {
     isValidForm.value = false
   }
